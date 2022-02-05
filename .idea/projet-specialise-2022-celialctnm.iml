@@ -5,6 +5,8 @@
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/AppGestionCompte/node_modules/expo-modules-autolinking/src/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/AppGestionCompte/node_modules/expo-modules-autolinking/build/platforms" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (backEndPython)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
