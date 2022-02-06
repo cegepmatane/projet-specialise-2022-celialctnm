@@ -80,4 +80,4 @@ def delete_article(id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='192.168.24.248', port=19000, debug=True)

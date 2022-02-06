@@ -1,19 +1,43 @@
-import React, {useState} from 'react';
-import {Text, View, Button, Alert, FlatList} from "react-native";
+import React, {useState, useEffect} from 'react';
+import {Text, View, Button, Alert, FlatList, StyleSheet} from "react-native";
+import {Card} from "react-native-paper";
 
 function Accueil(){
 
-    const data = [
-        {id: 1, magasin: "Carrefour", date: "2022-02-03", montant: 30},
-        {id: 2, magasin: "Intermarché", date: "2022-01-25", montant: 95},
-    ]
+    const [data, setData] = useState([]);
+    useEffect(()=>{
+        fetch('http://192.168.24.248:19000/get', {
+            method:'GET'
+        })
+            .then(resp=>resp.json())
+            .then(article => {
+                setData(article)
+            })
+    }, [])
+
+    const renderData = (item) => {
+        return (
+            <Card style = {styles.card}>
+                <Text> {item.date}</Text>
+                <Text> {item.magasin} - {item.montant} $</Text>
+            </Card>
+
+        )
+    }
 
     return (
         <View>
-            <Button title={"Découvrir"} onPress={() => Alert.alert("It's working")}/>
-            <FlatList data={data} renderItem={(data) => {console.log(data)}} keyExtractor={item =>`$item.id`}/>
+            <FlatList data={data} renderItem={({item}) => {return renderData(item)}} keyExtractor={item =>`${item.id}`}/>
+            <Button color={'#8C27FF'} title={'Ajouter une dépense'} onPress={()=>console.log("Press")}/>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    card: {
+        margin: 10,
+        padding: 10,
+    }
+})
 
 export default Accueil;

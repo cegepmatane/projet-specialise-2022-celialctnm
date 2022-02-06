@@ -1,11 +1,11 @@
 import {StyleSheet, Text, View, Button, Alert} from 'react-native';
 import Accueil from "./Components/Accueil";
+import Contants from "expo-constants";
 
 export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text> Bienvenue dans votre gestionnaire de compte </Text>
       <Accueil/>
     </View>
   );
@@ -14,8 +14,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#BEEDAC',
+    marginTop:Contants.statusBarHeight,
   },
 });
