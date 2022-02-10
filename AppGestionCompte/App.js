@@ -4,6 +4,7 @@ import Add from "./Components/Add";
 import Contants from "expo-constants";
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import Modifier from "./Components/Modifier";
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="Accueil" component={Accueil}/>
         <Stack.Screen name="Ajouter" component={Add}/>
+          <Stack.Screen name="Modifier" component={Modifier}/>
       </Stack.Navigator>
     </View>
   );

@@ -2,14 +2,17 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, Alert, FlatList, StyleSheet} from "react-native";
 import {Card, TextInput, Button} from "react-native-paper";
 
-function Add(props){
-    const [magasin,setMagasin] = useState("");
-    const [date,setDate] = useState("");
-    const [montant,setMontant] = useState("");
+function Modifier(props){
+    const donnees = props.route.params.data;
 
-    const insertData = () => {
-        fetch('http://192.168.24.248:19000/add', {
-            method: 'POST',
+    const [magasin,setMagasin] = useState(donnees.magasin);
+    const [date,setDate] = useState(donnees.date);
+    const [montant,setMontant] = useState(donnees.montant);
+
+
+    const updateData = () => {
+        fetch(`http://192.168.24.248:19000/update/${donnees.id}/`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -17,18 +20,18 @@ function Add(props){
         })
             .then(resp=>resp.json())
             .then(data=>{
-                props.navigation.navigate('Accueil')
+                props.navigation.navigate('Accueil', {donnees:donnees})
             })
             .catch(error=>console.log(error))
     }
 
     return (
         <View>
-           <TextInput
-           label = "Magasin"
-           value = {magasin}
-           mode = "outlined"
-           onChangeText = {text => setMagasin(text)}/>
+            <TextInput
+                label = "Magasin"
+                value = {magasin}
+                mode = "outlined"
+                onChangeText = {text => setMagasin(text)}/>
             <TextInput
                 label = "Date"
                 value = {date}
@@ -36,15 +39,15 @@ function Add(props){
                 onChangeText = {text => setDate(text)}/>
             <TextInput
                 label = "Montant"
-                value = {montant}
+                value = {montant.toString()}
                 mode = "outlined"
                 onChangeText = {text => setMontant(text)}/>
             <Button style={
                 {margin: 10}
             }
-            icon={"pencil"}
-            mode={"contained"}
-            onPress={()=>insertData()}>Insérer dépense</Button>
+                    icon={"pencil"}
+                    mode={"contained"}
+                    onPress={()=>updateData()}>Insérer dépense</Button>
         </View>
     )
 }
@@ -56,4 +59,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Add;
+export default Modifier;
