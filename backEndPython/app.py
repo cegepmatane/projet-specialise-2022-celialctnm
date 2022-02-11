@@ -1,7 +1,10 @@
+from tkinter import Image
+
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 from flask_marshmallow import Marshmallow
+import pytesseract
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://celia:03092002@localhost/backEndPython'
@@ -79,5 +82,24 @@ def delete_article(id):
     return article_schema.jsonify(article)
 
 
+@app.route('/getImg', methods=['GET'])
+def get_img():
+    pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/5.0.1/bin/tesseract'
+    imgText = pytesseract.image_to_string(r'IMG_3803.jpeg')
+    return imgText
+
+@app.route('/getMagasin', methods=['GET'])
+def get_magasin():
+    texteImage = get_img()
+    premierCaractere = 0
+    tabMotCle = ['TOTAL', 'ACHAT', 'Total', 'Achat']
+    for i in range(len(tabMotCle)):
+        if texteImage.find(tabMotCle[i])!=-1:
+            premierCaractere = texteImage.find(tabMotCle[i])
+    texteApresPremierTri = (texteImage[premierCaractere:premierCaractere+30])
+
+    return texteImage
+
+
 if __name__ == '__main__':
-    app.run(host='192.168.24.248', port=19000, debug=True)
+    app.run(host='10.1.55.165', port=19000, debug=True)

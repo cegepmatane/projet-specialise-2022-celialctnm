@@ -11,7 +11,7 @@ function Modifier(props){
 
 
     const updateData = () => {
-        fetch(`http://192.168.24.248:19000/update/${donnees.id}/`, {
+        fetch(`http://10.1.55.165:19000/update/${donnees.id}/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

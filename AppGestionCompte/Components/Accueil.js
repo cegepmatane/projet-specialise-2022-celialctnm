@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Button, Alert, FlatList, StyleSheet} from "react-native";
-import {Card} from "react-native-paper";
+import {View, Alert, FlatList, StyleSheet} from "react-native";
+import {Card, TextInput, Button, Text} from "react-native-paper";
 
 function Accueil(props){
 
     const [data, setData] = useState([]);
+    const [img, setImg] = useState("");
 
     const [loading, setIsLoading] = useState(true);
     const loadData = () => {
-        fetch('http://192.168.24.248:19000/get', {
+        fetch('http://10.1.55.165:19000/get', {
             method:'GET'
         })
             .then(resp=>resp.json())
@@ -18,6 +19,23 @@ function Accueil(props){
             })
             .catch(error=>console.log(error));
     }
+
+    const obtenirTexteImage = () => {
+        fetch('http://10.1.55.165:19000/getImg', {
+            method:'GET'
+        })
+            .then(resp=>resp.json())
+            .then(text => {
+                console.log("Texte récupéré de l'image : ")
+                setImg(text);
+                console.log(text)
+            })
+            .catch(error=>console.log(error));
+    }
+
+
+
+
 
     useEffect(()=>{
         loadData();
@@ -29,7 +47,7 @@ function Accueil(props){
 
     const supprimer = (data) => {
         console.log(data.id);
-        fetch(`http://192.168.24.248:19000/delete/${data.id}/`, {
+        fetch(`http:/10.1.55.165:19000/delete/${data.id}/`, {
             method: 'DELETE',
             headers:  {
                 'Content-Type': 'application/json',
@@ -47,8 +65,21 @@ function Accueil(props){
             <Card style = {styles.card}>
                 <Text> {item.date}</Text>
                 <Text> {item.magasin} - {item.montant} $</Text>
-                <Button title={'Modifier'} color={'orange'} onPress={()=> modifier(item)}/>
-                <Button title={'Delete'} onPress={()=>supprimer(item)} color={'red'}/>
+                <Button style={
+                    {margin: 10, backgroundColor: '#ffa800', width: 150}
+                }
+                        mode={"contained"}
+                        onPress={()=> modifier(item)}>Modifier</Button>
+                <Button style={
+                    {margin: 10, backgroundColor: 'red', width: 150}
+                }
+                        mode={"contained"}
+                        onPress={()=> supprimer(item)}>Supprimer</Button>
+                <Button style={
+                    {margin: 10, backgroundColor: 'blue', width: 300}
+                }
+                        mode={"contained"}
+                        onPress={()=>  obtenirTexteImage()}>Obtenir texte image</Button>
             </Card>
 
         )
@@ -56,8 +87,12 @@ function Accueil(props){
 
     return (
         <View>
-            <FlatList data={data} renderItem={({item}) => {return renderData(item)}} onRefresh={()=>loadData()} refreshing={loading} keyExtractor={item =>`${item.id}`}/>
-            <Button color={'#8C27FF'} title={'Ajouter une dépense'} onPress={()=> props.navigation.navigate("Ajouter")}/>
+            <Button style={
+                {margin: 10, backgroundColor: '#7D1DFF', width: 250}
+            }
+                    mode={"contained"}
+                    onPress={()=> props.navigation.navigate("Ajouter")}>Ajouter une dépense</Button>
+                <FlatList data={data} renderItem={({item}) => {return renderData(item)}} onRefresh={()=>loadData()} refreshing={loading} keyExtractor={item =>`${item.id}`}/>
         </View>
     )
 }
@@ -66,6 +101,7 @@ const styles = StyleSheet.create({
     card: {
         margin: 10,
         padding: 10,
+        backgroundColor: '#e7e7e7'
     }
 })
 

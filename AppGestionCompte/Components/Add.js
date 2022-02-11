@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Alert, FlatList, StyleSheet} from "react-native";
+import {Text, View, Alert, FlatList, StyleSheet, Image} from "react-native";
 import {Card, TextInput, Button} from "react-native-paper";
 
 function Add(props){
@@ -7,8 +7,10 @@ function Add(props){
     const [date,setDate] = useState("");
     const [montant,setMontant] = useState("");
 
+
+
     const insertData = () => {
-        fetch('http://192.168.24.248:19000/add', {
+        fetch('http://10.1.55.165:19000/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
