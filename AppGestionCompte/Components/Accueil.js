@@ -9,7 +9,7 @@ function Accueil(props){
 
     const [loading, setIsLoading] = useState(true);
     const loadData = () => {
-        fetch('http://10.1.55.165:19000/get', {
+        fetch('http://192.168.24.248:50019/get', {
             method:'GET'
         })
             .then(resp=>resp.json())
@@ -20,15 +20,13 @@ function Accueil(props){
             .catch(error=>console.log(error));
     }
 
-    const obtenirTexteImage = () => {
-        fetch('http://10.1.55.165:19000/getImg', {
+    const loadimg = () => {
+        fetch('http://192.168.24.248:50019/getImg', {
             method:'GET'
         })
             .then(resp=>resp.json())
             .then(text => {
-                console.log("Texte récupéré de l'image : ")
                 setImg(text);
-                console.log(text)
             })
             .catch(error=>console.log(error));
     }
@@ -47,7 +45,7 @@ function Accueil(props){
 
     const supprimer = (data) => {
         console.log(data.id);
-        fetch(`http:/10.1.55.165:19000/delete/${data.id}/`, {
+        fetch(`http:/192.168.24.248:50019/delete/${data.id}/`, {
             method: 'DELETE',
             headers:  {
                 'Content-Type': 'application/json',
@@ -79,7 +77,8 @@ function Accueil(props){
                     {margin: 10, backgroundColor: 'blue', width: 300}
                 }
                         mode={"contained"}
-                        onPress={()=>  obtenirTexteImage()}>Obtenir texte image</Button>
+                        onPress={()=>loadimg()}>Obtenir texte image</Button>
+                <Text> {img}</Text>
             </Card>
 
         )

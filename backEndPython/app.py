@@ -86,7 +86,8 @@ def delete_article(id):
 def get_img():
     pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/5.0.1/bin/tesseract'
     imgText = pytesseract.image_to_string(r'IMG_3803.jpeg')
-    return imgText
+    return jsonify(imgText)
+
 
 @app.route('/getMagasin', methods=['GET'])
 def get_magasin():
@@ -94,12 +95,12 @@ def get_magasin():
     premierCaractere = 0
     tabMotCle = ['TOTAL', 'ACHAT', 'Total', 'Achat']
     for i in range(len(tabMotCle)):
-        if texteImage.find(tabMotCle[i])!=-1:
+        if texteImage.find(tabMotCle[i]) != -1:
             premierCaractere = texteImage.find(tabMotCle[i])
-    texteApresPremierTri = (texteImage[premierCaractere:premierCaractere+30])
+    texteApresPremierTri = (texteImage[premierCaractere:premierCaractere + 30])
 
     return texteImage
 
 
 if __name__ == '__main__':
-    app.run(host='10.1.55.165', port=19000, debug=True)
+    app.run(host='0.0.0.0', port=0, debug=True)
