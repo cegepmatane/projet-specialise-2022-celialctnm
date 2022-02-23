@@ -13,4 +13,6 @@ Lien grille comparaison : https://docs.google.com/presentation/d/1Oa3-2bpoKoZCZc
 
 Lien fiche PoC : https://docs.google.com/document/d/1A0at3nP0nfeCpfaTMSnLCJBnqHgyYZJD_LBQjR6j0fo/edit?usp=sharing
 
+Lien analyse fonctionnelle : https://docs.google.com/presentation/d/1fo9gJLnGCn9Zr7DOcNwzURiS5gojFHz4BlfpGb-FK8U/edit?usp=sharing 
+
 

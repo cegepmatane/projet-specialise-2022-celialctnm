@@ -85,7 +85,7 @@ def delete_article(id):
 @app.route('/getImg', methods=['GET'])
 def get_img():
     pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/5.0.1/bin/tesseract'
-    imgText = pytesseract.image_to_string(r'IMG_3803.jpeg')
+    imgText = pytesseract.image_to_string(r'ticket_iga1.jpeg')
     return jsonify(imgText)
 
 
