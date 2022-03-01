@@ -9,9 +9,8 @@ function Modifier(props){
     const [date,setDate] = useState(donnees.date);
     const [montant,setMontant] = useState(donnees.montant);
 
-
     const updateData = () => {
-        fetch(`http://10.1.55.165:49176/update/${donnees.id}/`, {
+        fetch(`http://192.168.24.248:52424/update/${donnees.id}/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

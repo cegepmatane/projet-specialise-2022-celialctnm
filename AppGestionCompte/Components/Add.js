@@ -10,7 +10,7 @@ function Add(props){
 
 
     const insertData = () => {
-        fetch('http://10.1.55.165:49176/add', {
+        fetch('http://192.168.24.248:52424/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

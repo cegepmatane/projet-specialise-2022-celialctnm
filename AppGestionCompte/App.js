@@ -5,6 +5,7 @@ import Contants from "expo-constants";
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Modifier from "./Components/Modifier";
+import Appareil from "./Components/Appareil";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ export default()=>{
   return(
           <NavigationContainer>
             <App/>
+              <Appareil/>
           </NavigationContainer>
       )
 }

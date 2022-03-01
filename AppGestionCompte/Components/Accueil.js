@@ -9,7 +9,7 @@ function Accueil(props){
 
     const [loading, setIsLoading] = useState(true);
     const loadData = () => {
-        fetch('http://10.1.55.165:49176/get', {
+        fetch('http://192.168.24.248:52424/get', {
             method:'GET'
         })
             .then(resp=>resp.json())
@@ -21,7 +21,7 @@ function Accueil(props){
     }
 
     const loadimg = () => {
-        fetch('http://10.1.55.165:49176/getImg', {
+        fetch('http://192.168.24.248:52424/getImg', {
             method:'GET'
         })
             .then(resp=>resp.json())
@@ -45,7 +45,7 @@ function Accueil(props){
 
     const supprimer = (data) => {
         console.log(data.id);
-        fetch(`http:/10.1.55.165:49176/delete/${data.id}/`, {
+        fetch(`http://192.168.24.248:52424/delete/${data.id}/`, {
             method: 'DELETE',
             headers:  {
                 'Content-Type': 'application/json',
