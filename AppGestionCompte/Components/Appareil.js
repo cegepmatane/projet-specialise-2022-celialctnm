@@ -4,6 +4,18 @@ import { View, Text, StyleSheet, Image, Button } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 function Appareil() {
+
+    const [data, setData] = useState([]);
+    const getImage = () => {
+        fetch(`http://10.1.55.148:59208/getImg`, {
+            method: 'GET',
+            headers:  {
+                'Content-Type': 'application/json',
+            }
+        })
+            .catch(error=>console.log(error));
+    }
+
     // The path of the picked image
     const [pickedImagePath, setPickedImagePath] = useState('');
 
@@ -24,7 +36,8 @@ function Appareil() {
 
         if (!result.cancelled) {
             setPickedImagePath(result.uri);
-            console.log(result.uri);
+            //console.log(JSON.stringify(getImage()));
+
         }
     }
 
@@ -38,14 +51,16 @@ function Appareil() {
             return;
         }
 
-        const result = await ImagePicker.launchCameraAsync();
+        const result = await ImagePicker.launchCameraAsync({
+            base64: true,
+        });
 
         // Explore the result
         console.log(result);
 
         if (!result.cancelled) {
             setPickedImagePath(result.uri);
-            console.log(result.uri);
+
         }
     }
 
