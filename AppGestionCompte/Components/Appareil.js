@@ -3,17 +3,43 @@ import { View, Text, StyleSheet, Image, Button } from 'react-native';
 
 import * as ImagePicker from 'expo-image-picker';
 
+async function trouveTextImage (uri_image,byteImage)  {
+    let url_api_request = "http://192.168.24.49:52785/image"
+    // console.log(url_tweet);
+    let text_img = await fetch(url_api_request, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                //Origin: origin
+            },
+            body: JSON.stringify({
+                uri:uri_image,
+                byteImage:byteImage
+            })
+
+        },
+        {mode: 'cors'})
+        .then(result => result.json())
+        .then(data => {
+            console.log(data.uri);
+            return data.uri;
+        });
+
+    return (text_img)
+}
+
 function Appareil() {
 
     const [data, setData] = useState([]);
     const getImage = () => {
-        fetch(`http://10.1.55.148:59208/getImg`, {
+        fetch(`http://192.168.24.49:61858/getImg`, {
             method: 'GET',
-            headers:  {
+            headers: {
                 'Content-Type': 'application/json',
             }
         })
-            .catch(error=>console.log(error));
+            .catch(error => console.log(error));
     }
 
     // The path of the picked image
@@ -36,6 +62,10 @@ function Appareil() {
 
         if (!result.cancelled) {
             setPickedImagePath(result.uri);
+            console.log(pickedImagePath);
+            console.log("---------------------")
+            console.log(result)
+            console.log(await trouveTextImage(pickedImagePath, result.base64))
             //console.log(JSON.stringify(getImage()));
 
         }
@@ -52,7 +82,10 @@ function Appareil() {
         }
 
         const result = await ImagePicker.launchCameraAsync({
+            saveToPhotos: true,
+            uri: true,
             base64: true,
+
         });
 
         // Explore the result
@@ -60,9 +93,18 @@ function Appareil() {
 
         if (!result.cancelled) {
             setPickedImagePath(result.uri);
+            console.log(pickedImagePath);
+            console.log("---------------------")
+            console.log(result)
+            console.log(await trouveTextImage(pickedImagePath, result.base64))
 
+            }
         }
-    }
+
+
+
+
+
 
     return (
         <View style={styles.screen}>
