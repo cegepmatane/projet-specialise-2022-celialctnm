@@ -83,15 +83,13 @@ def delete_article(id):
     return article_schema.jsonify(article)
 
 
-
 @app.route('/getImg', methods=['GET'])
 def get_img():
-    import json
-
-
     pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/5.0.1/bin/tesseract'
-    #imgText = pytesseract.image_to_string(obj_python['r '''])
-    #return jsonify(imgText)
+    imgText = pytesseract.image_to_string('image.png')
+    #print(jsonify(imgText))
+    #reponse["imgText"] = imgText
+    return jsonify(imgText)
 
 
 @app.route('/getMagasin', methods=['GET'])
@@ -107,29 +105,19 @@ def get_magasin():
     return texteImage
 
 
-
 @app.route("/image", methods=['GET', 'POST'])
 def image():
     if request.method == "POST":
-        #print(request.get_json())
+        # print(request.get_json())
         reponse = request.get_json()
-        #print(reponse['byteImage'])
+        # print(reponse['byteImage'])
         print("-------------------------")
-
         import base64
         from PIL import Image
         from io import BytesIO
-
         im = Image.open(BytesIO(base64.b64decode(reponse['byteImage'])))
         im.save('image.png', 'PNG')
-
-        pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/5.0.1/bin/tesseract'
-        imgText = pytesseract.image_to_string('image.png')
-        #print(imgText)
-        print(jsonify(imgText))
-        reponse["imgText"] = imgText
         return reponse
-
 
 
 if __name__ == '__main__':

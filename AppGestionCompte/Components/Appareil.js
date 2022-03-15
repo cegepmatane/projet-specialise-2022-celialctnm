@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, Button } from 'react-native';
-
+import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
+import * as Paper from 'react-native-paper';
+import {Button, Card, Divider, List} from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 
 async function trouveTextImage (uri_image,byteImage)  {
-    let url_api_request = "http://192.168.24.49:52785/image"
+    let url_api_request = "http://192.168.24.49:54103/image"
     // console.log(url_tweet);
     let text_img = await fetch(url_api_request, {
             method: 'POST',
@@ -29,17 +30,20 @@ async function trouveTextImage (uri_image,byteImage)  {
     return (text_img)
 }
 
+
 function Appareil() {
 
-    const [data, setData] = useState([]);
-    const getImage = () => {
-        fetch(`http://192.168.24.49:61858/getImg`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
+    const obtenirTexteImage = () => {
+        fetch('http://192.168.24.49:54103/getImg', {
+            method:'GET'
         })
-            .catch(error => console.log(error));
+            .then(resp=>resp.json())
+            .then(text => {
+                console.log("Texte récupéré de l'image : ")
+                setimg(text);
+                console.log(text)
+            })
+            .catch(error=>console.log(error));
     }
 
     // The path of the picked image
@@ -63,10 +67,6 @@ function Appareil() {
         if (!result.cancelled) {
             setPickedImagePath(result.uri);
             console.log(pickedImagePath);
-            console.log("---------------------")
-            console.log(result)
-            console.log(await trouveTextImage(pickedImagePath, result.base64))
-            //console.log(JSON.stringify(getImage()));
 
         }
     }
@@ -101,16 +101,11 @@ function Appareil() {
             }
         }
 
-
-
-
-
-
+    const [img, setimg] = useState([]);
     return (
         <View style={styles.screen}>
             <View style={styles.buttonContainer}>
                 <Button onPress={showImagePicker} title="Select an image" />
-                <Button onPress={openCamera} title="Open camera" />
             </View>
 
             <View style={styles.imageContainer}>
@@ -120,6 +115,18 @@ function Appareil() {
                         style={styles.image}
                     />
                 }
+                <View style={styles.buttonContainer}>
+                    <Button style={
+                        {margin: 10, backgroundColor: '#7D1DFF', width: 240}
+                    }
+                            mode={"contained"} onPress={openCamera} icon={"camera"}> Prendre une photo </Button>
+                    <Button style={{margin: 10, backgroundColor: '#2cd336', width: 150}} onPress={()=>obtenirTexteImage()}> Résultat</Button>
+                </View>
+                <View style={
+                    {margin: 20, backgroundColor: '#e6d4ff'}
+                }>
+                    <Text> {img} </Text>
+                </View>
             </View>
         </View>
     );
@@ -147,5 +154,5 @@ const styles = StyleSheet.create({
         width: 400,
         height: 300,
         resizeMode: 'cover'
-    }
+    },
 });

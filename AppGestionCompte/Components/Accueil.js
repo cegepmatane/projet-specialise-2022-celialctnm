@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View, Alert, FlatList, StyleSheet} from "react-native";
-import {Card, TextInput, Button, Text} from "react-native-paper";
+import {Card, TextInput, Button, Text, List} from "react-native-paper";
+import Appareil from "./Appareil";
+import ListAccordion from "react-native-paper/src/components/List/ListAccordion";
 
 function Accueil(props){
 
@@ -9,24 +11,13 @@ function Accueil(props){
 
     const [loading, setIsLoading] = useState(true);
     const loadData = () => {
-        fetch('http://192.168.24.49:61858/get', {
+        fetch('http://192.168.24.49:54103/get', {
             method:'GET'
         })
             .then(resp=>resp.json())
             .then(article => {
                 setData(article);
                 setIsLoading(false);
-            })
-            .catch(error=>console.log(error));
-    }
-
-    const loadimg = () => {
-        fetch('http://192.168.24.49:61858/getImg', {
-            method:'GET'
-        })
-            .then(resp=>resp.json())
-            .then(text => {
-                setImg(text);
             })
             .catch(error=>console.log(error));
     }
@@ -41,7 +32,7 @@ function Accueil(props){
 
     const supprimer = (data) => {
         console.log(data.id);
-        fetch(`http://192.168.24.49:61858/delete/${data.id}/`, {
+        fetch(`http://192.168.24.49:54103/delete/${data.id}/`, {
             method: 'DELETE',
             headers:  {
                 'Content-Type': 'application/json',
@@ -56,7 +47,7 @@ function Accueil(props){
 
     const renderData = (item) => {
         return (
-            <Card style = {styles.card}>
+            <View>
                 <Text> {item.date}</Text>
                 <Text> {item.magasin} - {item.montant} $</Text>
                 <Button style={
@@ -69,34 +60,36 @@ function Accueil(props){
                 }
                         mode={"contained"}
                         onPress={()=> supprimer(item)}>Supprimer</Button>
-                <Button style={
-                    {margin: 10, backgroundColor: 'blue', width: 300}
-                }
-                        mode={"contained"}
-                        onPress={()=>loadimg()}>Obtenir texte image</Button>
-                <Text> {img}</Text>
-            </Card>
+            </View>
 
         )
     }
 
     return (
-        <View>
-            <Button style={
-                {margin: 10, backgroundColor: '#7D1DFF', width: 250}
-            }
-                    mode={"contained"}
-                    onPress={()=> props.navigation.navigate("Ajouter")}>Ajouter une dépense</Button>
+        <View style={styles.accueil}>
+            <View>
                 <FlatList data={data} renderItem={({item}) => {return renderData(item)}} onRefresh={()=>loadData()} refreshing={loading} keyExtractor={item =>`${item.id}`}/>
+            </View>
+            <View>
+                    <Button style={
+                        {margin: 10, backgroundColor: '#7D1DFF', width: 250}
+                    }
+                            mode={"contained"}
+                            onPress={()=> props.navigation.navigate("Ajouter")}>Ajouter une dépense</Button>
+                    <Button style={
+                        {margin: 10, backgroundColor: '#06da42', width: 250}
+                    }
+                            mode={"contained"}
+                            onPress={()=> props.navigation.navigate("Appareil")}>Appareil</Button>
+            </View>
         </View>
+
     )
 }
 
 const styles = StyleSheet.create({
-    card: {
-        margin: 10,
-        padding: 10,
-        backgroundColor: '#e7e7e7'
+    accueil: {
+        flex: 1,
     }
 })
 

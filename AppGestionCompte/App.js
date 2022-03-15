@@ -17,6 +17,7 @@ function App() {
         <Stack.Screen name="Accueil" component={Accueil}/>
         <Stack.Screen name="Ajouter" component={Add}/>
           <Stack.Screen name="Modifier" component={Modifier}/>
+          <Stack.Screen name="Appareil" component={Appareil}/>
       </Stack.Navigator>
     </View>
   );
@@ -26,7 +27,6 @@ export default()=>{
   return(
           <NavigationContainer>
             <App/>
-              <Appareil/>
           </NavigationContainer>
       )
 }
