@@ -8,9 +8,10 @@ function Add(props){
     const [montant,setMontant] = useState("");
 
 
+    let url = "http://192.168.24.49:50115/"
 
     const insertData = () => {
-        fetch('http://192.168.24.49:54103/add', {
+        fetch(url + 'add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

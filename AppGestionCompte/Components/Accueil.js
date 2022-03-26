@@ -6,12 +6,14 @@ import ListAccordion from "react-native-paper/src/components/List/ListAccordion"
 
 function Accueil(props){
 
+    let url= "http://10.1.55.148:50518/"
+
     const [data, setData] = useState([]);
     const [img, setImg] = useState("");
 
     const [loading, setIsLoading] = useState(true);
     const loadData = () => {
-        fetch('http://192.168.24.49:54103/get', {
+        fetch( url + 'get', {
             method:'GET'
         })
             .then(resp=>resp.json())
@@ -32,7 +34,7 @@ function Accueil(props){
 
     const supprimer = (data) => {
         console.log(data.id);
-        fetch(`http://192.168.24.49:54103/delete/${data.id}/`, {
+        fetch( url + `/delete/${data.id}/`, {
             method: 'DELETE',
             headers:  {
                 'Content-Type': 'application/json',

@@ -4,8 +4,10 @@ import * as Paper from 'react-native-paper';
 import {Button, Card, Divider, List} from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 
+let url = "http://10.1.55.148:50518/"
+
 async function trouveTextImage (uri_image,byteImage)  {
-    let url_api_request = "http://192.168.24.49:54103/image"
+    let url_api_request = "http://10.1.55.148:50518/image"
     // console.log(url_tweet);
     let text_img = await fetch(url_api_request, {
             method: 'POST',
@@ -34,7 +36,7 @@ async function trouveTextImage (uri_image,byteImage)  {
 function Appareil() {
 
     const obtenirTexteImage = () => {
-        fetch('http://192.168.24.49:54103/getImg', {
+        fetch( 'http://10.1.55.148:50518/getImg', {
             method:'GET'
         })
             .then(resp=>resp.json())
