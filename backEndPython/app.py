@@ -101,31 +101,45 @@ def get_img():
 @app.route('/getMontant', methods=['GET'])
 def get_info():
     pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/5.0.1/bin/tesseract'
-    imgText = pytesseract.image_to_string('imgTest.png')
+    imgText = pytesseract.image_to_string('IMG_3803.png')
 
     total = "Total"
+    montant = ""
+    montantFloat = 0.0
+
+    print(imgText)
 
     if "Total" in imgText:
-        print(imgText.find("Total"))
-        print(imgText[imgText.find("Total")])
-
-    montant = imgText[imgText.find(total):imgText.find(total) + 20]
-    montant = montant.replace(",", ".")
-    montantFloat = re.findall(r"[-+]?(?:\d*\.\d+|\d+)", montant)
+        total = "Total"
+        montant = imgText[imgText.find(total):imgText.find(total) + 20]
+        montant = montant.replace(",", ".")
+        montantFloat = re.findall(r"[-+]?(?:\d*\.\d+|\d+)", montant)
+    if "Montant" in imgText:
+        total = "Montant"
+        montant = imgText[imgText.find(total):imgText.find(total) + 25]
+        montant = montant.replace(",", ".")
+        montantFloat = re.findall(r"[-+]?(?:\d*\.\d+|\d+)", montant)
+    if "ACHAT" in imgText:
+        total = "ACHAT"
+        montant = imgText[imgText.find(total):imgText.find(total) + 30]
+        montant = montant.replace(",", ".")
+        montantFloat = re.findall(r"[-+]?(?:\d*\.\d+|\d+)", montant)
     return jsonify(montantFloat)
 
 
 @app.route('/getMagasin', methods=['GET'])
 def get_magasin():
-    texteImage = get_img()
-    premierCaractere = 0
-    tabMotCle = ['TOTAL', 'ACHAT', 'Total', 'Achat']
-    for i in range(len(tabMotCle)):
-        if texteImage.find(tabMotCle[i]) != -1:
-            premierCaractere = texteImage.find(tabMotCle[i])
-    texteApresPremierTri = (texteImage[premierCaractere:premierCaractere + 30])
+    pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/5.0.1/bin/tesseract'
+    imgText = pytesseract.image_to_string('IMG_3803.png')
 
-    return texteImage
+    total = "Total"
+    montant = ""
+    montantFloat = 0.0
+
+    print(imgText)
+    date = re.findall("\d\d[-/]\d\d[-/]\d{2,4}",imgText)
+
+    return jsonify(date)
 
 
 @app.route("/image", methods=['GET', 'POST'])

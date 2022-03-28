@@ -8,16 +8,15 @@ function Modifier(props){
     const [magasin,setMagasin] = useState(donnees.magasin);
     const [date,setDate] = useState(donnees.date);
     const [montant,setMontant] = useState(donnees.montant);
-
-    let url = "http://192.168.24.49:50115/"
+    const [categorie,setCategorie] = useState(donnees.categorie);
 
     const updateData = () => {
-        fetch(url + `/update/${donnees.id}/`, {
+        fetch(`http://192.168.24.49:61379/update/${donnees.id}/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({magasin:magasin, date:date, montant:montant})
+            body: JSON.stringify({magasin:magasin, date:date, montant:montant, categorie:categorie})
         })
             .then(resp=>resp.json())
             .then(data=>{
@@ -38,6 +37,11 @@ function Modifier(props){
                 value = {date}
                 mode = "outlined"
                 onChangeText = {text => setDate(text)}/>
+            <TextInput
+                label = "Categorie"
+                value = {categorie}
+                mode = "outlined"
+                onChangeText = {text => setCategorie(text)}/>
             <TextInput
                 label = "Montant"
                 value = {montant.toString()}
