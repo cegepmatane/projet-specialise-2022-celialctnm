@@ -11,7 +11,7 @@ function Modifier(props){
     const [categorie,setCategorie] = useState(donnees.categorie);
 
     const updateData = () => {
-        fetch(`http://192.168.24.49:61379/update/${donnees.id}/`, {
+        fetch(`http://10.1.55.148:52784/update/${donnees.id}/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,33 +26,35 @@ function Modifier(props){
     }
 
     return (
-        <View>
-            <TextInput
-                label = "Magasin"
-                value = {magasin}
-                mode = "outlined"
-                onChangeText = {text => setMagasin(text)}/>
-            <TextInput
-                label = "Date"
-                value = {date}
-                mode = "outlined"
-                onChangeText = {text => setDate(text)}/>
-            <TextInput
-                label = "Categorie"
-                value = {categorie}
-                mode = "outlined"
-                onChangeText = {text => setCategorie(text)}/>
-            <TextInput
-                label = "Montant"
-                value = {montant.toString()}
-                mode = "outlined"
-                onChangeText = {text => setMontant(text)}/>
-            <Button style={
-                {margin: 10}
-            }
-                    icon={"pencil"}
-                    mode={"contained"}
-                    onPress={()=>updateData()}>Insérer dépense</Button>
+        <View style={styles.page}>
+            <View style={{margin: 10}}>
+                <TextInput
+                    label = "Magasin"
+                    value = {magasin}
+                    mode = "outlined"
+                    onChangeText = {text => setMagasin(text)}/>
+                <TextInput
+                    label = "Date"
+                    value = {date}
+                    mode = "outlined"
+                    onChangeText = {text => setDate(text)}/>
+                <TextInput
+                    label = "Categorie"
+                    value = {categorie}
+                    mode = "outlined"
+                    onChangeText = {text => setCategorie(text)}/>
+                <TextInput
+                    label = "Montant"
+                    value = {montant.toString()}
+                    mode = "outlined"
+                    onChangeText = {text => setMontant(text)}/>
+                <Button style={
+                    {margin: 10, backgroundColor: '#af31e0'}
+                }
+                        icon={"pencil"}
+                        mode={"contained"}
+                        onPress={()=>updateData()}>Insérer dépense</Button>
+            </View>
         </View>
     )
 }
@@ -61,6 +63,10 @@ const styles = StyleSheet.create({
     card: {
         margin: 10,
         padding: 10,
+    },
+    page: {
+        backgroundColor: '#c7ccfc',
+        height: 900,
     }
 })
 

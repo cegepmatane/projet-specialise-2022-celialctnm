@@ -7,7 +7,7 @@ import {ScrollView} from "react-native-gesture-handler";
 
 function Accueil(props){
 
-    let url= "http://192.168.24.49:61379/"
+    let url= "http://192.168.24.49:55496/"
 
     const [data, setData] = useState([]);
     const [img, setImg] = useState("");

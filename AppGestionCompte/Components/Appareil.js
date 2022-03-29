@@ -4,10 +4,10 @@ import * as Paper from 'react-native-paper';
 import {Button, Card, Divider, List} from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 
-let url = "http://10.1.55.148:50518/"
+let url = "http://10.1.55.148:52784/"
 
 async function trouveTextImage (uri_image,byteImage)  {
-    let url_api_request = "http://10.1.55.148:50518/image"
+    let url_api_request = "http://10.1.55.148:52784/image"
     // console.log(url_tweet);
     let text_img = await fetch(url_api_request, {
             method: 'POST',
@@ -36,7 +36,7 @@ async function trouveTextImage (uri_image,byteImage)  {
 function Appareil() {
 
     const obtenirTexteImage = () => {
-        fetch( 'http://10.1.55.148:50518/getImg', {
+        fetch( 'http://10.1.55.148:52784/getImg', {
             method:'GET'
         })
             .then(resp=>resp.json())
@@ -107,6 +107,17 @@ function Appareil() {
     return (
         <View style={styles.screen}>
             <View style={styles.buttonContainer}>
+                <Button style={
+                    {margin: 10, backgroundColor: '#3138ea', width: 240}
+                }
+                        mode={"contained"} onPress={openCamera} icon={"camera"}> Prendre une photo </Button>
+                <Button style={
+                    {margin: 10, backgroundColor: '#7D1DFF', width: 240}
+                }
+                        mode={"contained"} onPress={()=>obtenirTexteImage()} icon={"loading"}> Affichage du texte </Button>
+            </View>
+
+            <View style={styles.buttonContainer}>
                 <Button onPress={showImagePicker} title="Select an image" />
             </View>
 
@@ -117,15 +128,8 @@ function Appareil() {
                         style={styles.image}
                     />
                 }
-                <View style={styles.buttonContainer}>
-                    <Button style={
-                        {margin: 10, backgroundColor: '#7D1DFF', width: 240}
-                    }
-                            mode={"contained"} onPress={openCamera} icon={"camera"}> Prendre une photo </Button>
-                    <Button style={{margin: 10, backgroundColor: '#2cd336', width: 150}} onPress={()=>obtenirTexteImage()}> Résultat</Button>
-                </View>
                 <View style={
-                    {margin: 20, backgroundColor: '#e6d4ff'}
+                    {margin: 20}
                 }>
                     <Text> {img} </Text>
                 </View>
@@ -143,11 +147,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#c7ccfc'
     },
     buttonContainer: {
         width: 400,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
+        marginLeft: 140
     },
     imageContainer: {
         padding: 30

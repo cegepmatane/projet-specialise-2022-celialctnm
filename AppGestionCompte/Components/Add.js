@@ -8,7 +8,7 @@ function Add(props){
     const [montant,setMontant] = useState("");
     const [categorie, setCategorie] = useState("");
 
-    let url = "192.168.24.49:61379"
+    let url = "192.168.24.49:55496/"
 
     const insertData = () => {
         fetch('http://' + url+ '/add', {

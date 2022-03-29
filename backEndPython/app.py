@@ -182,8 +182,8 @@ def somme():
         value = {
             "name": tab[i],
             "montant": somme[i],
-            "color": "rgba(" + str(random.randint(180, 256)) + "," + str(random.randint(100, 256)) + ", " + str(
-                random.randint(155, 257)) + "," + str(1) + ")",
+            "color": "rgba(" + str(random.randint(100, 256)) + "," + str(random.randint(100, 256)) + ", " + str(
+                random.randint(100, 257)) + "," + str(1) + ")",
             "legendFontColor": "#7F7F7F",
             "legendFontSize": 14
         }

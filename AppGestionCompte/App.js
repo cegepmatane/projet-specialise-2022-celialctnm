@@ -35,9 +35,41 @@ function App() {
                 fontWeight: 'bold',
             },
         }} name="Ajouter" component={Add}/>
-          <Stack.Screen name="Modifier" component={Modifier}/>
-          <Stack.Screen name="Appareil" component={Appareil}/>
-          <Stack.Screen name="Depenses" component={Depenses}/>
+
+
+          <Stack.Screen options={{
+              title: 'Modifier une dépense',
+              headerStyle: {
+                  backgroundColor: '#c7ccfc',
+              },
+              headerTintColor: '#030303',
+              headerTitleStyle: {
+                  fontWeight: 'bold',
+              },
+          }} name="Modifier" component={Modifier}/>
+
+          <Stack.Screen options={{
+              title: 'Prendre une photo',
+              headerStyle: {
+                  backgroundColor: '#c7ccfc',
+              },
+              headerTintColor: '#030303',
+              headerTitleStyle: {
+                  fontWeight: 'bold',
+              },
+          }} name="Appareil" component={Appareil}/>
+
+
+          <Stack.Screen options={{
+              title: 'Récapitulatif',
+              headerStyle: {
+                  backgroundColor: '#c7ccfc',
+              },
+              headerTintColor: '#030303',
+              headerTitleStyle: {
+                  fontWeight: 'bold',
+              },
+          }} name="Depenses" component={Depenses}/>
       </Stack.Navigator>
     </View>
   );

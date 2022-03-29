@@ -8,7 +8,7 @@ import {
 
 function Depenses(props){
 
-    let url = "192.168.24.49:60985"
+    let url = "http://192.168.24.49:55496/"
 
     const [depenses, setDepense] = useState([
         {
@@ -49,7 +49,7 @@ function Depenses(props){
     ]);
 
     const recupererData = () => {
-        fetch('http://' + url + '/somme', {
+        fetch(url + '/somme', {
             method:'GET'
         })
             .then(resp=>resp.json())
@@ -66,17 +66,17 @@ function Depenses(props){
         backgroundGradientFromOpacity: 0,
         backgroundGradientTo: "#0c0c0c",
         backgroundGradientToOpacity: 0.5,
-        color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
         strokeWidth: 2, // optional, default 3
         barPercentage: 0.5,
         useShadowColorFromDataset: false, // optional
     };
 
     return (
-        <View>
+        <View style={styles.page}>
             <View>
                 <Button style={
-                    {margin: 10, backgroundColor: '#f0afff', width: 300, marginLeft: 35}
+                    {margin: 10, backgroundColor: '#af31e0', width: 300, marginLeft: 35}
                 }
                         mode={"contained"}
                         onPress={()=> recupererData()}>Chargement des données</Button>
@@ -98,5 +98,16 @@ function Depenses(props){
 
     )
 }
+
+const styles = StyleSheet.create({
+    card: {
+        margin: 10,
+        padding: 10,
+    },
+    page: {
+        backgroundColor: '#c7ccfc',
+        height: 900,
+    }
+})
 
 export default Depenses;
